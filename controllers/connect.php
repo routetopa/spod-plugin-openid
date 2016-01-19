@@ -17,8 +17,12 @@ require_once 'Auth' . DS . 'OpenID' . DS . 'PAPE.php';
 class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
 {
 
-    //private $OPENIDPROVIDER = "https://openid.stackexchange.com/";
-    private $OPENIDPROVIDER = "http://localhost/openid"; //"http://spod.routetopa.eu/openid/spodadmin@routetopa.eu";
+    //"http://spod.routetopa.eu/openid/spodadmin@routetopa.eu";
+    //private $DEFAULT_OPENID_PROVIDER = "https://openid.stackexchange.com/";
+
+    private $DEFAULT_OPENID_PROVIDER = "http://localhost/openid";
+    private $PREFERENCESKEY_PROVIDER_URL = 'openidconnect_provider_url';
+
     private $consumer = null;
 
     public  function init() {
@@ -27,6 +31,10 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
 
     public function login( $params )
     {
+        //It loads the provider URL from the preferences.
+        $providerPreferences = BOL_PreferenceService::getInstance()->findPreference($this->PREFERENCESKEY_PROVIDER_URL);
+        $this->OPENIDPROVIDER = empty($providerPreferences) ? $this->DEFAULT_OPENID_PROVIDER : $providerPreferences->defaultValue;
+
         //Begin the OpenID authentication process.
         $auth_request = $this->consumer->begin($this->OPENIDPROVIDER);
         $errorRedirectAddress = '/';
