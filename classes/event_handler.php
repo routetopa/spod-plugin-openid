@@ -14,6 +14,7 @@ class OPENIDCONNECT_CLASS_EventHandler
 
         //It replaces the Sign in link with the custom link.
         $a = $event->getData()[0];
+        print_r($a);
         $item = $a['item'];
 
         if ($item instanceof BASE_CMP_ConsoleItem) {

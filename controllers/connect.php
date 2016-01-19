@@ -289,6 +289,10 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
         }*/
     }//EndFunction.
 
+    function logout() {
+        $this->redirect("www.repubblica.it");
+    }//EndFunction
+
     function &getStore() {
         /**
          * This is where the example will store its OpenID information.
