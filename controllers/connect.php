@@ -18,7 +18,7 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
 {
 
     //private $OPENIDPROVIDER = "https://openid.stackexchange.com/";
-    private $OPENIDPROVIDER = "http://spod.routetopa.eu/openid/server.php"; //"http://spod.routetopa.eu/openid/spodadmin@routetopa.eu";
+    private $OPENIDPROVIDER = "http://localhost/openid"; //"http://spod.routetopa.eu/openid/spodadmin@routetopa.eu";
     private $consumer = null;
 
     public  function init() {
@@ -339,8 +339,9 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
     }//EndFunction.
 
     function getReturnTo() {
+        $dirname = str_replace('\\', '/', dirname($_SERVER['PHP_SELF']));
         return sprintf("%s://%s:%s%s%s",
-            $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']),
+            $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], $dirname,
             "openid-connect/loginSuccess");
     }
 
