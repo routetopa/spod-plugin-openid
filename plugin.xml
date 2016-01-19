@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<plugin>
+    <name>OpenIDConnect</name>
+    <key>openidconnect</key>
+    <description>Allow users to join, sign in, and synchronize profile info using their OpenID accounts</description>
+    <author>ROUTETOPA</author>
+    <authorEmail>coordinator@routetopa.eu</authorEmail>
+    <authorUrl>http://www.routetopa.eu</authorUrl>
+    <developerKey></developerKey>
+    <build>1</build>
+    <copyright>ROUTETOPA All rights reserved.</copyright>
+    <license>MIT</license>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+</plugin>
