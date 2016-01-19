@@ -1,9 +1,9 @@
 <?php
 
+include 'keys.php';
+
 class OPENIDCONNECT_CTRL_Admin extends ADMIN_CTRL_Abstract
 {
-
-    private $KEY_PROVIDER_URL = 'openidconnect_provider_url';
 
     public function settings($params) {
         $this->setPageTitle(OW::getLanguage()->text('openidconnect', 'settings_title'));
@@ -12,16 +12,21 @@ class OPENIDCONNECT_CTRL_Admin extends ADMIN_CTRL_Abstract
         $form = new Form('settings');
         $this->addForm($form);
 
-        /* OPENIDPROVIDER URL */
-        $txtProviderUrl = new TextField($this->KEY_PROVIDER_URL);
-
-        echo $_SERVER['HTTP_HOST'];
-
-        $preference = BOL_PreferenceService::getInstance()->findPreference($this->KEY_PROVIDER_URL);
+        /* OPENIDPROVIDER LOGIN URL */
+        $txtProviderUrl = new TextField(PREFERENCE_KEYS::$KEY_PROVIDER_LOGIN_URL);
+        $preference = BOL_PreferenceService::getInstance()->findPreference(PREFERENCE_KEYS::$KEY_PROVIDER_LOGIN_URL);
         $openidconnect_provider_url = empty($preference) ? "http://spod.routetopa.eu/openid/server.php" : $preference->defaultValue;
         $txtProviderUrl->setValue($openidconnect_provider_url);
         $txtProviderUrl->setRequired();
         $form->addElement($txtProviderUrl);
+
+        /* OPENIDPROVIDER LOGOUT URL */
+        $txtLogoutUrl = new TextField(PREFERENCE_KEYS::$KEY_PROVIDER_LOGOUT_URL);
+        $preference = BOL_PreferenceService::getInstance()->findPreference(PREFERENCE_KEYS::$KEY_PROVIDER_LOGOUT_URL);
+        $openidconnect_logout_url = empty($preference) ? "/" : $preference->defaultValue;
+        $txtLogoutUrl->setValue($openidconnect_logout_url);
+        $txtLogoutUrl->setRequired();
+        $form->addElement($txtLogoutUrl);
 
         $submit = new Submit('add');
         $submit->setValue(OW::getLanguage()->text('openidconnect', 'add_key_submit'));

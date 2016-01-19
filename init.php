@@ -9,7 +9,8 @@ OW::getRouter()->addRoute(new OW_Route('openidconnect_loginsuccess', 'openid-con
 
 //ROUTING: logout from SPOD.
 //OW::getRouter()->addRoute(new OW_Route('openidconnect_login', 'openid-connect/sign-out', 'OPENIDCONNECT_CTRL_Connect', 'login'));
-//OW::getRouter()->addRoute(new OW_Route('base_sign_out', 'sign-out', 'OPENIDCONNECT_CTRL_Connect', 'logout'));
+OW::getRouter()->removeRoute('base_sign_out');
+OW::getRouter()->addRoute(new OW_Route('base_sign_out', 'sign-out', 'OPENIDCONNECT_CTRL_Connect', 'logout'));
 
 //Registry.
 $registry = OW::getRegistry();

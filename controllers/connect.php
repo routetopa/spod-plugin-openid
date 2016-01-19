@@ -14,6 +14,8 @@ require_once 'Auth' . DS . 'OpenID' . DS . 'FileStore.php';
 require_once 'Auth' . DS . 'OpenID' . DS . 'SReg.php';
 require_once 'Auth' . DS . 'OpenID' . DS . 'PAPE.php';
 
+include 'keys.php';
+
 class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
 {
 
@@ -21,18 +23,20 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
     //private $DEFAULT_OPENID_PROVIDER = "https://openid.stackexchange.com/";
 
     private $DEFAULT_OPENID_PROVIDER = "http://localhost/openid";
-    private $PREFERENCESKEY_PROVIDER_URL = 'openidconnect_provider_url';
+    //private $PREFERENCESKEY_PROVIDER_URL = 'openidconnect_provider_url';
 
     private $consumer = null;
+    private $userService = null;
 
     public  function init() {
         $this->consumer = $this->getConsumer();
+        $this->userService = BOL_UserService::getInstance();
     }//EndFunction.
 
     public function login( $params )
     {
         //It loads the provider URL from the preferences.
-        $providerPreferences = BOL_PreferenceService::getInstance()->findPreference($this->PREFERENCESKEY_PROVIDER_URL);
+        $providerPreferences = BOL_PreferenceService::getInstance()->findPreference(PREFERENCE_KEYS::$KEY_PROVIDER_LOGIN_URL);
         $this->OPENIDPROVIDER = empty($providerPreferences) ? $this->DEFAULT_OPENID_PROVIDER : $providerPreferences->defaultValue;
 
         //Begin the OpenID authentication process.
@@ -286,19 +290,21 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
             }//EndIf
 
         }
-
-
-        /*$userByEmail = BOL_UserService::getInstance()->findByUsername("spodadmin");
-        var_dump($userByEmail);
-        if ($userByEmail) {
-            //OW::getUser()->login($userByEmail->id);
-            //OW::getFeedback()->info("Sbiricuda ti sei loggato");
-            //$this->redirect("/");
-        }*/
     }//EndFunction.
 
     function logout() {
-        $this->redirect("www.repubblica.it");
+        OW::getUser()->logout();
+
+        if ( isset($_COOKIE['ow_login']) )
+        {
+            setcookie('ow_login', '', time() - 3600, '/');
+        }
+        OW::getSession()->set('no_autologin', true);
+
+        //It redirects to the first page.
+        $preference = BOL_PreferenceService::getInstance()->findPreference(PREFERENCE_KEYS::$KEY_PROVIDER_LOGOUT_URL);
+        $openidconnect_logout_url = empty($preference) ? "/" : $preference->defaultValue;
+        $this->redirect($openidconnect_logout_url);
     }//EndFunction
 
     function &getStore() {
