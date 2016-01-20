@@ -158,14 +158,6 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
             $data_fullname = @$sreg['fullname'];
             $data_password = uniqid();
 
-            //***ONLY FOR TESTING
-            if (strpos($data_email, 'donatopirozzi@libero.it') === true) {
-                $userByEmail = BOL_UserService::getInstance()->findByEmail($data_email);
-                if ($userByEmail != null)
-                    $deleted = BOL_UserService::getInstance()->deleteUser($userByEmail->getId());
-            }
-            //***ONLY FOR TESTING
-
             $userByEmail = BOL_UserService::getInstance()->findByEmail($data_email);
 
             //$userByEmail = BOL_UserService::getInstance()->findByUsername("sbiricuda");
@@ -241,29 +233,6 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
                             return;
                     }
                 }//EndTryCatch.
-
-                //http://192.168.20.130/openid-connect/loginSuccess?
-                //janrain_nonce=2015-12-16T17%3A03%3A07ZMwd3Fa
-                //&openid.error=return_to%20%27http%3A%2F%2F192.168.20.130%2Fopenid-connect%2FloginSuccess%3Fjanrain_nonce%3D2015-12-16T17%3A03%3A07ZMwd3Fa%27%20not%20under%20realm%20%27http%3A%2F%2F192.168.20.130%2F%2F%27.
-                //&openid.mode=error
-                //&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0
-
-
-                //loginSuccess?
-                //janrain_nonce=2015-12-17T12%3A09%3A29ZhAZDCw
-                //&openid.claimed_id=https%3A%2F%2Fopenid.stackexchange.com%2Fuser%2F0be091aa-0ce6-44b4-8d5a-1b76efd26d52
-                //&openid.identity=https%3A%2F%2Fopenid.stackexchange.com%2Fuser%2F0be091aa-0ce6-44b4-8d5a-1b76efd26d52
-                //&openid.sig=3TcPscI6JPT2IXxzAYaYB%2FXmfGwdzxc03dOgjydOF04%3D
-                //&openid.signed=claimed_id%2Cidentity%2Cassoc_handle%2Cop_endpoint%2Creturn_to%2Cresponse_nonce%2Cns.sreg%2Csreg.email%2Csreg.fullname
-                //&openid.assoc_handle=HxGh%21IAAAANxR9fdqW3qesmGgFqyKk5BeAabK3POKC9-0BfhOo9bLQQAAAAFzL2Le-IolbXoLJuqPgK2v9e3SB4VG722XDesQl042D7ZkkEio-lL9VKMAWBkRrnA2q-HwoinbG12S41R4KnI6
-                //&openid.invalidate_handle=Silq%21IAAAADcV1L4kef0O_oM0MYUL0qeiYDHOZbAX9rHHc0KVJCGmMQAAAAE7kW4aXwAvsF_3Scv9duov8R-UxfC_k3i4CI6E8L3QdYSI2tRPhODweHQgEc9MltU
-                //&openid.op_endpoint=https%3A%2F%2Fopenid.stackexchange.com%2Fopenid%2Fprovider
-                //&openid.return_to=http%3A%2F%2F192.168.20.130%3A80%2Fopenid-connect%2FloginSuccess%3Fjanrain_nonce%3D2015-12-17T12%253A09%253A29ZhAZDCw
-                //&openid.response_nonce=2015-12-17T11%3A15%3A31ZsKAxJPZv
-                //&openid.mode=id_res&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0
-                //&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1
-                //&openid.sreg.email=donatopirozzi%40gmail.com
-                //&openid.sreg.fullname=Donato%20Pirozzi
 
                 $authAdapter = new OPENIDCONNECT_CLASS_AuthAdapter($createdUser->getId());
                 $authAdapter->register($createdUser->getId());
