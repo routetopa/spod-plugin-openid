@@ -12,6 +12,11 @@ OW::getRouter()->addRoute(new OW_Route('openidconnect_loginsuccess', 'openid-con
 OW::getRouter()->removeRoute('base_sign_out');
 OW::getRouter()->addRoute(new OW_Route('base_sign_out', 'sign-out', 'OPENIDCONNECT_CTRL_Connect', 'logout'));
 
+OW::getRouter()->removeRoute('static_sign_in');
+OW::getRouter()->addRoute(new OW_Route('static_sign_in', 'sign-in', 'OPENIDCONNECT_CTRL_Connect', 'login'));
+//$router->addRoute(new OW_Route('static_sign_in', 'sign-in', 'BASE_CTRL_User', 'standardSignIn'));
+
+
 //Registry.
 $registry = OW::getRegistry();
 $registry->addToArray(BASE_CTRL_Join::JOIN_CONNECT_HOOK, array(new OPENIDCONNECT_CMP_ConnectButton()), 'render');
