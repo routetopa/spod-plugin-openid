@@ -329,7 +329,7 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
         $dirname = str_replace('\\', '/', dirname($_SERVER['PHP_SELF']));
         return sprintf("%s://%s:%s%s%s",
             $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], $dirname,
-            "openid-connect/loginSuccess");
+            "/openid-connect/loginSuccess");
     }
 
     function getTrustRoot() {

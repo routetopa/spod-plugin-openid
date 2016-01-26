@@ -12,10 +12,15 @@ OW::getRouter()->addRoute(new OW_Route('openidconnect_loginsuccess', 'openid-con
 OW::getRouter()->removeRoute('base_sign_out');
 OW::getRouter()->addRoute(new OW_Route('base_sign_out', 'sign-out', 'OPENIDCONNECT_CTRL_Connect', 'logout'));
 
+//This route replaces the Oxwall existing ROUTE-TO-PA sign-in which loads when the user enters
+//in a page that requires the log-in.
 OW::getRouter()->removeRoute('static_sign_in');
 OW::getRouter()->addRoute(new OW_Route('static_sign_in', 'sign-in', 'OPENIDCONNECT_CTRL_Connect', 'login'));
-//$router->addRoute(new OW_Route('static_sign_in', 'sign-in', 'BASE_CTRL_User', 'standardSignIn'));
 
+//This route replaces the original Oxwall ajax-form route.
+//OW::getRouter()->removeRoute('ajax-form');
+//OW::getRouter()->addRoute(new OW_Route('ajax-form', 'ajax-form', 'BASE_CTRL_AjaxForm', 'index'));
+//OW::getRouter()->addRoute(new OW_Route('ajax-form', 'ajax-form', 'OPENIDCONNECT_CTRL_Connect', 'login'));
 
 //Registry.
 $registry = OW::getRegistry();

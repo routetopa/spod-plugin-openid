@@ -10,7 +10,7 @@ class OPENIDCONNECT_CLASS_EventHandler
 {
     public function collectAuthLinkItems( BASE_CLASS_ConsoleItemCollector $event )
     {
-        $urlAuthPage = "/openid-connect/login";
+        $urlAuthPage = "openid-connect/login";
 
         //It replaces the Sign in link with the custom link.
         $a = $event->getData()[0];
