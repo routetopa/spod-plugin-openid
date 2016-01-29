@@ -36,7 +36,6 @@ class OPENIDCONNECT_CTRL_Admin extends ADMIN_CTRL_Abstract
             $data = $form->getValues();
 
             $preference = BOL_PreferenceService::getInstance()->findPreference(PREFERENCE_KEYS::$KEY_PROVIDER_LOGIN_URL);
-
             if (empty($preference))
                 $preference = new BOL_Preference();
 
@@ -45,6 +44,18 @@ class OPENIDCONNECT_CTRL_Admin extends ADMIN_CTRL_Abstract
             $preference->defaultValue = $data[PREFERENCE_KEYS::$KEY_PROVIDER_LOGIN_URL];
             $preference->sortOrder = 1;
             BOL_PreferenceService::getInstance()->savePreference($preference);
+
+
+            $preference = BOL_PreferenceService::getInstance()->findPreference(PREFERENCE_KEYS::$KEY_PROVIDER_LOGOUT_URL);
+            if (empty($preference))
+                $preference = new BOL_Preference();
+
+            $preference->key = PREFERENCE_KEYS::$KEY_PROVIDER_LOGOUT_URL;
+            $preference->sectionName = 'general';
+            $preference->defaultValue = $data[PREFERENCE_KEYS::$KEY_PROVIDER_LOGOUT_URL];
+            $preference->sortOrder = 1;
+            BOL_PreferenceService::getInstance()->savePreference($preference);
+            
         }//EndIf.
     }//EndFunction.
 

@@ -22,6 +22,14 @@ OW::getRouter()->addRoute(new OW_Route('static_sign_in', 'sign-in', 'OPENIDCONNE
 //OW::getRouter()->addRoute(new OW_Route('ajax-form', 'ajax-form', 'BASE_CTRL_AjaxForm', 'index'));
 //OW::getRouter()->addRoute(new OW_Route('ajax-form', 'ajax-form', 'OPENIDCONNECT_CTRL_Connect', 'login'));
 
+//Route change profile to disable the e-mail field and the change password.
+OW::getRouter()->removeRoute('base_edit');
+OW::getRouter()->removeRoute('base_edit_user_datails');
+OW::getRouter()->addRoute(new OW_Route('base_edit', 'profile/edit', 'OPENIDCONNECT_CTRL_Edit', 'index'));
+//$router->addRoute(new OW_Route('base_edit', 'profile/edit', 'BASE_CTRL_Edit', 'index'));
+//$router->addRoute(new OW_Route('base_edit_user_datails', 'profile/:userId/edit/', 'BASE_CTRL_Edit', 'index'));
+
+
 //Registry.
 $registry = OW::getRegistry();
 $registry->addToArray(BASE_CTRL_Join::JOIN_CONNECT_HOOK, array(new OPENIDCONNECT_CMP_ConnectButton()), 'render');
