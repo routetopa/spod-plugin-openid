@@ -6,8 +6,8 @@ class OPENIDCONNECT_CTRL_Admin extends ADMIN_CTRL_Abstract
 {
 
     public function settings($params) {
-        $this->setPageTitle(OW::getLanguage()->text('openidconnect', 'settings_title'));
-        $this->setPageHeading(OW::getLanguage()->text('openidconnect', 'settings_heading'));
+        $this->setPageTitle(OW::getLanguage()->text('openidconnect', 'admin_title'));
+        $this->setPageHeading(OW::getLanguage()->text('openidconnect', 'admin_heading'));
 
         $form = new Form('settings');
         $this->addForm($form);
