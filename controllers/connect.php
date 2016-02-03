@@ -205,7 +205,9 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
 
                     if (!$validUsername) {
                         $createdUser->username = $data_username . $createdUser->id;
+                        $createdUser->emailVerify = true;
                         BOL_UserService::getInstance()->saveOrUpdate($createdUser);
+
                     }
 
 

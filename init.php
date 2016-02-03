@@ -24,7 +24,7 @@ OW::getRouter()->addRoute(new OW_Route('static_sign_in', 'sign-in', 'OPENIDCONNE
 
 //Route change profile to disable the e-mail field and the change password.
 OW::getRouter()->removeRoute('base_edit');
-OW::getRouter()->removeRoute('base_edit_user_datails');
+//OW::getRouter()->removeRoute('base_edit_user_datails');
 OW::getRouter()->addRoute(new OW_Route('base_edit', 'profile/edit', 'OPENIDCONNECT_CTRL_Edit', 'index'));
 //$router->addRoute(new OW_Route('base_edit', 'profile/edit', 'BASE_CTRL_Edit', 'index'));
 //$router->addRoute(new OW_Route('base_edit_user_datails', 'profile/:userId/edit/', 'BASE_CTRL_Edit', 'index'));
