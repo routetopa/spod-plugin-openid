@@ -6,11 +6,8 @@
  * Time: 15.25
  */
 
-//Get the reference to this plug-in.
-$plugin = OW::getPluginManager()->getPlugin('openidconnect');
-
-$pathLangZip = $plugin->getRootDir() . 'langs.zip';
-BOL_LanguageService::getInstance()->importPrefixFromZip($pathLangZip, 'openidconnect');
+$path = OW::getPluginManager()->getPlugin('openidconnect')->getRootDir() . 'langs.zip';
+BOL_LanguageService::getInstance()->importPrefixFromZip($path, 'openidconnect');
 
 //This is the prefix of all tables in Oxwall.
 $dbPrefix = OW_DB_PREFIX;
