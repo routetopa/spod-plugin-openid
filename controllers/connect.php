@@ -185,7 +185,8 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
                         return;
                     }
 
-                    $validUsername = UTIL_Validator::isUserNameValid($mailExploded[0]);
+                    $data_username = str_replace('.', '', $mailExploded[0]);
+                    $validUsername = UTIL_Validator::isUserNameValid($data_username);
                     if (!$validUsername) {
                         OW::getFeedback()->error("First time login failed, not valid mail address " . $data_email);
                         $this->redirect("/");
@@ -193,7 +194,6 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
                     }
 
                     //Checks if the user name has already used.
-                    $data_username = $mailExploded[0];
                     $tmpuser = BOL_UserService::getInstance()->findByUsername($data_username);
                     if ($tmpuser != null) $validUsername = false; //it creates any way the user and concats the id.
                 }
@@ -248,7 +248,7 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
                     ));
                     OW::getEventManager()->trigger($event);
 
-                    OW::getFeedback()->info("Join success" . $data_username);
+                    OW::getFeedback()->info("Join success " . $data_username);
                     $this->redirect("/user/" . $data_username);
                     return;
                 }
