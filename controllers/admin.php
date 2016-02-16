@@ -6,8 +6,8 @@ class OPENIDCONNECT_CTRL_Admin extends ADMIN_CTRL_Abstract
 {
 
     public function settings($params) {
-        $this->setPageTitle(OW::getLanguage()->text('openidconnect', 'admin_title'));
-        $this->setPageHeading(OW::getLanguage()->text('openidconnect', 'admin_heading'));
+        $this->setPageTitle(OW::getLanguage()->text('openidconnect', 'settings_title'));
+        $this->setPageHeading(OW::getLanguage()->text('openidconnect', 'settings_heading'));
 
         $form = new Form('settings');
         $this->addForm($form);
@@ -28,6 +28,14 @@ class OPENIDCONNECT_CTRL_Admin extends ADMIN_CTRL_Abstract
         $txtLogoutUrl->setRequired();
         $form->addElement($txtLogoutUrl);
 
+        /* PAGE TO CHANGE YOUR PASSWORD */
+        $txtChangePassword = new TextField(PREFERENCE_KEYS::$KEY_PROVIDER_CHANGEPASSWORD_URL);
+        $preference = BOL_PreferenceService::getInstance()->findPreference(PREFERENCE_KEYS::$KEY_PROVIDER_CHANGEPASSWORD_URL);
+        $openidconnect_changepassword_url = empty($preference) ? "/" : $preference->defaultValue;
+        $txtChangePassword->setValue($openidconnect_changepassword_url);
+        $txtChangePassword->setRequired();
+        $form->addElement($txtChangePassword);
+
         $submit = new Submit('add');
         $submit->setValue(OW::getLanguage()->text('openidconnect', 'add_key_submit'));
         $form->addElement($submit);
@@ -35,6 +43,7 @@ class OPENIDCONNECT_CTRL_Admin extends ADMIN_CTRL_Abstract
         if (OW::getRequest()->isPost() && $form->isValid($_POST)) {
             $data = $form->getValues();
 
+            //It saves the LOGIN URL in the database.
             $preference = BOL_PreferenceService::getInstance()->findPreference(PREFERENCE_KEYS::$KEY_PROVIDER_LOGIN_URL);
             if (empty($preference))
                 $preference = new BOL_Preference();
@@ -45,7 +54,7 @@ class OPENIDCONNECT_CTRL_Admin extends ADMIN_CTRL_Abstract
             $preference->sortOrder = 1;
             BOL_PreferenceService::getInstance()->savePreference($preference);
 
-
+            //It saves the LOGOUT URL in the database.
             $preference = BOL_PreferenceService::getInstance()->findPreference(PREFERENCE_KEYS::$KEY_PROVIDER_LOGOUT_URL);
             if (empty($preference))
                 $preference = new BOL_Preference();
@@ -55,7 +64,16 @@ class OPENIDCONNECT_CTRL_Admin extends ADMIN_CTRL_Abstract
             $preference->defaultValue = $data[PREFERENCE_KEYS::$KEY_PROVIDER_LOGOUT_URL];
             $preference->sortOrder = 1;
             BOL_PreferenceService::getInstance()->savePreference($preference);
-            
+
+            //It saves the CHANGE PASSWORD URL in the database.
+            $preference = BOL_PreferenceService::getInstance()->findPreference(PREFERENCE_KEYS::$KEY_PROVIDER_CHANGEPASSWORD_URL);
+            if (empty($preference))
+                $preference = new BOL_Preference();
+            $preference->key = PREFERENCE_KEYS::$KEY_PROVIDER_CHANGEPASSWORD_URL;
+            $preference->sectionName = 'general';
+            $preference->defaultValue = $data[PREFERENCE_KEYS::$KEY_PROVIDER_CHANGEPASSWORD_URL];
+            $preference->sortOrder = 1;
+
         }//EndIf.
     }//EndFunction.
 

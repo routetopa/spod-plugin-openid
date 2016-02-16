@@ -11,7 +11,9 @@ class OPENIDCONNECT_CTRL_Edit extends BASE_CTRL_Edit {
     public function index($params) {
         parent::index($params);
         $this->removeComponent("changePassword");
-        $this->removeComponent("editForm");
+
+        //$changePassword = new BASE_CMP_ChangePassword();
+        //$this->addComponent("changePassword", $changePassword);
     }
 
 }

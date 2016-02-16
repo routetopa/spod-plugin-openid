@@ -186,6 +186,7 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
                     }
 
                     $data_username = str_replace('.', '', $mailExploded[0]);
+                    $data_username = str_replace('-', '', $data_username);
                     $validUsername = UTIL_Validator::isUserNameValid($data_username);
                     if (!$validUsername) {
                         OW::getFeedback()->error("First time login failed, not valid mail address " . $data_email);
