@@ -2,7 +2,7 @@
 
 <plugin>
     <name>SPOD OpenID Connect</name>
-    <key>spod_plugin_openid_connect</key>
+    <key>openidconnect</key>
     <description>Allow users to join, sign in, and synchronize profile info using their OpenID accounts</description>
     <author>ISISLab</author>
     <authorEmail>isislab@routetopa.eu</authorEmail>
