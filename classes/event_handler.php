@@ -18,7 +18,9 @@ class OPENIDCONNECT_CLASS_EventHandler
         $item = $a['item'];
 
         if ($item instanceof BASE_CMP_ConsoleItem) {
-            $item->setControl('<a href="' . $urlAuthPage . '">Log in</a>');
+//            $item->setControl('<a href="' . $urlAuthPage . '">Log in</a>');
+            $login = OW::getLanguage()->text('openidconnect', 'login');
+            $item->setControl('<a href="' . $urlAuthPage . '"><span class="ow_signin_label">' . $login . '</span></a>');
 
             $unbindClick = "$('#".$item->getUniqId()."').unbind('click');";
             OW::getDocument()->addOnloadScript($unbindClick);
