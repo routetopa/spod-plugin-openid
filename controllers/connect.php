@@ -41,6 +41,7 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
 
         //Begin the OpenID authentication process.
         $auth_request = $this->consumer->begin($this->OPENIDPROVIDER);
+        $auth_request->return_to_args['back-uri'] = $_GET['back-uri'];
         $errorRedirectAddress = '/';
 
         //It it is null, the user cannot begin a OpenID auth request.
@@ -119,6 +120,12 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
         $response = $this->consumer->complete($return_to);
 
         $redirectAddress = '/';
+        if (is_a($response->message, Auth_OpenID_Message::class))
+        {
+            $redirectAddress = $response->message->getArg(Auth_OpenID_BARE_NS, 'back-uri');
+        }
+        print_r($redirectAddress);die();
+
         // Check the response status.
         if ($response->status == Auth_OpenID_CANCEL) {
             // This means the authentication was cancelled.
