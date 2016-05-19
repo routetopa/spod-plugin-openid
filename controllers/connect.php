@@ -124,7 +124,6 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
         {
             $redirectAddress = $response->message->getArg(Auth_OpenID_BARE_NS, 'back-uri');
         }
-        print_r($redirectAddress);die();
 
         // Check the response status.
         if ($response->status == Auth_OpenID_CANCEL) {
