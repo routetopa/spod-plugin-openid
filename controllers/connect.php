@@ -171,7 +171,11 @@ class OPENIDCONNECT_CTRL_Connect extends OW_ActionController
 
             if ($userByEmail != null) {
                 OW::getUser()->login($userByEmail->id);
-                $msg = $userByEmail->getUserName($userByEmail->id) . " ti sei loggato.";
+                $label = OW::getLanguage()->text('openidconnect', 'msg_login');
+                $msg = $userByEmail->getUserName($userByEmail->id) . $label;
+               // $msg = $userByEmail->getUserName($userByEmail->id) . " ti sei loggato.";
+
+
                 OW::getFeedback()->info($msg);
                 $this->redirect($redirectAddress);
                 return;
