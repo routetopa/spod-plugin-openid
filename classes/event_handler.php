@@ -24,6 +24,8 @@ class OPENIDCONNECT_CLASS_EventHandler
 
             $unbindClick = "$('#".$item->getUniqId()."').unbind('click');";
             OW::getDocument()->addOnloadScript($unbindClick);
+
+            $item->setIsHidden(true);
         }
     }//EndFunction.
 
