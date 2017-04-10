@@ -60,8 +60,8 @@ class OPENIDCONNECT_CLASS_EventHandler
             // Create a mail and sent it to admin
             $mail = OW::getMailer()->createMail();
             $mail->addRecipientEmail(  OW::getConfig()->getValue('base', 'site_email') );
-            $mail->setSender(  OW::getConfig()->getValue('base', 'site_email') );
-            $mail->setSenderSuffix(false);
+            //$mail->setSender(  OW::getConfig()->getValue('base', 'site_email') );
+            //$mail->setSenderSuffix(false);
             $mail->setSubject( $subject );
             $mail->setHtmlContent($template_html);
             $mail->setTextContent($template_text);
